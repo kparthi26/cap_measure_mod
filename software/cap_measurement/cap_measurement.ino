@@ -145,13 +145,14 @@ int dual_ch_menu()
 
 void read_sing_cap(int ch)
 {
+  int i = 0;
   int32_t cap_val;
   int count = 0;
   do{
     if(0 == count)
     {
       lcd.clear();
-      cap_val = measure_cap(ch - 1);
+      cap_val += measure_cap(ch - 1);
       lcd.print("Ch");
       lcd.print(ch);
       lcd.print(":");
@@ -164,7 +165,7 @@ void read_sing_cap(int ch)
     if(10 == count)
       count = 0;
       
-    delay(100);
+    delay(1000);
   }while(!button1.pressed());
 }
 
@@ -207,7 +208,7 @@ void read_dual_cap(int ch)
     if(10 == count)
       count = 0;
       
-    delay(100);
+    delay(1000);
   }while(!button1.pressed());
 }
 
