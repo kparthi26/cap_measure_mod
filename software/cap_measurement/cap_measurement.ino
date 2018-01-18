@@ -145,14 +145,20 @@ int dual_ch_menu()
 
 void read_sing_cap(int ch)
 {
-  int i = 0;
-  int32_t cap_val;
+  int32_t sample_cap_val = 0;
+  int j = 0;
+  int32_t cap_val = 0;
   int count = 0;
   do{
     if(0 == count)
     {
       lcd.clear();
-      cap_val += measure_cap(ch - 1);
+      for(j = 0; j < 10; j++)
+      {
+        sample_cap_val += measure_cap(ch - 1);
+        delay(5);
+      }
+      cap_val =  sample_cap_val / 10;
       lcd.print("Ch");
       lcd.print(ch);
       lcd.print(":");
@@ -162,16 +168,18 @@ void read_sing_cap(int ch)
     }
     count++;
     
-    if(10 == count)
+    if(100 == count)
       count = 0;
       
-    delay(1000);
+    delay(100);
   }while(!button1.pressed());
 }
 
 void read_dual_cap(int ch)
 {
-  int32_t cap_val;
+  int32_t cap_val = 0;
+  int32_t sample_cap_val = 0;
+  int j = 0;
   int count = 0;
   do{
     if(0 == count)
@@ -180,22 +188,44 @@ void read_dual_cap(int ch)
       switch(ch)
       {
         case 1:
-          cap_val = measure_cap(0);
+          for(j = 0; j < 10; j++)
+          {
+            sample_cap_val += measure_cap(0);
+            delay(5);
+          }
+          cap_val =  sample_cap_val / 10;
           lcd.print("C1:");
           lcd.print(cap_val);
           lcd.print("fF");
-          cap_val = measure_cap(1);
+          sample_cap_val = 0;
+          for(j = 0; j < 10; j++)
+          {
+            sample_cap_val += measure_cap(1);
+            delay(5);
+          }
+          cap_val =  sample_cap_val / 10;
           lcd.setCursor(0, 1);
           lcd.print("C2:");
           lcd.print(cap_val);
           lcd.print("fF");
           break;
         case 2:
-          cap_val = measure_cap(2);
+          for(j = 0; j < 10; j++)
+          {
+            sample_cap_val += measure_cap(2);
+            delay(5);
+          }
+          cap_val =  sample_cap_val / 10;
           lcd.print("C3:");
           lcd.print(cap_val);
           lcd.print("fF");
-          cap_val = measure_cap(3);
+          sample_cap_val = 0;
+          for(j = 0; j < 10; j++)
+          {
+            sample_cap_val += measure_cap(3);
+            delay(5);
+          }
+          cap_val =  sample_cap_val / 10;
           lcd.setCursor(0, 1);
           lcd.print("C4:");
           lcd.print(cap_val);
@@ -205,10 +235,10 @@ void read_dual_cap(int ch)
     }
     count++;
     
-    if(10 == count)
+    if(100 == count)
       count = 0;
       
-    delay(1000);
+    delay(100);
   }while(!button1.pressed());
 }
 
