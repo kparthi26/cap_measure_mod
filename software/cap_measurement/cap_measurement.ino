@@ -153,6 +153,7 @@ void read_sing_cap(int ch)
     if(0 == count)
     {
       lcd.clear();
+      sample_cap_val = 0;
       for(j = 0; j < 10; j++)
       {
         sample_cap_val += measure_cap(ch - 1);
@@ -168,7 +169,7 @@ void read_sing_cap(int ch)
     }
     count++;
     
-    if(100 == count)
+    if(10 == count)
       count = 0;
       
     delay(100);
@@ -188,6 +189,7 @@ void read_dual_cap(int ch)
       switch(ch)
       {
         case 1:
+          sample_cap_val = 0;
           for(j = 0; j < 10; j++)
           {
             sample_cap_val += measure_cap(0);
@@ -210,6 +212,7 @@ void read_dual_cap(int ch)
           lcd.print("fF");
           break;
         case 2:
+          sample_cap_val = 0;
           for(j = 0; j < 10; j++)
           {
             sample_cap_val += measure_cap(2);
@@ -235,7 +238,7 @@ void read_dual_cap(int ch)
     }
     count++;
     
-    if(100 == count)
+    if(10 == count)
       count = 0;
       
     delay(100);
